@@ -1,6 +1,6 @@
 using System;
 using System.Collections.Generic;
-using OS.Text;
+using OS.TextCollector;
 using UnityEditor;
 using UnityEditor.SceneManagement;
 using UnityEngine;
@@ -23,10 +23,10 @@ namespace OS.Text
 
         private void OnDisable()
         {
-            if (Collector == null) Collector = new TextCollector();
+            if (Collector == null) Collector = new TextCollector.TextCollector();
         }
 
-        public TextCollector Collector;
+        public TextCollector.TextCollector Collector;
         public string chars = String.Empty;
         public string AppendChars = String.Empty;
 
@@ -36,7 +36,7 @@ namespace OS.Text
 
         private void OnGUI()
         {
-            if (Collector == null) Collector = new TextCollector();
+            if (Collector == null) Collector = new TextCollector.TextCollector();
             EditorGUILayout.BeginVertical();
             PrintText = EditorGUILayout.Toggle("Print Text", PrintText);
             LoadAll = EditorGUILayout.Toggle("Load AllScene", LoadAll);

@@ -5,8 +5,13 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
-namespace OS.Text
+namespace OS.TextCollector
 {
+    //デフォルトで設定しているText,TextMesh,TextMeshPro以外のScene上のテキスト要素を取得したいときに実装する必要があるインターフェース
+    public interface IHaveText
+    {
+        string Text();
+    }
     //Scene上のすべてのUI.Textの文字列を取得しSceneで使用されている文字列を特定する
     public class TextCollector
     {
@@ -89,6 +94,15 @@ namespace OS.Text
                 if (ch[i].GetComponent<TextMeshProUGUI>()) builder.Append(ch[i].GetComponent<TextMeshProUGUI>().text);
                 if (ch[i].GetComponent<TextMesh>()) builder.Append(ch[i].GetComponent<TextMesh>().text);
                 if (ch[i].GetComponent<TextMeshPro>()) builder.Append(ch[i].GetComponent<TextMeshPro>().text);
+                
+
+                if(ch[i].GetComponents<IHaveText>()!=null)
+                    foreach (var text in ch[i].GetComponents<IHaveText>())
+                    {
+                        builder.Append(text.Text());
+                    }
+//                if (ch[i].GetComponent<HintReceiver>()) builder.Append(ch[i].GetComponent<HintReceiver>().Message);
+//                if (ch[i].GetComponent<HintReceiver>()) builder.Append(ch[i].GetComponent<HintReceiver>().Title);
                 
                 SearchChildren(ch[i].gameObject, builder);
             }
